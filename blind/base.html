@@ -7,19 +7,34 @@
         <!--<script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core.js"></script>-->
         <script>
-            /* The resulting page should take the text entered into a text field 
-             * and when the 'add' button is clicked, add that text to the end of 
-             * an ordered list. Advanced users will also need to uppercase the 
-             * text that is inserted into the list based on the status of the 
-             * checkbox.
-             * 
-             * In action: http://screencast.com/t/ZDYwZGYyZ
-             */
-            $(document).ready(function(){
-                
-                
-                
-            });
+/* The resulting page should take the text entered into a text field 
+ * and when the 'add' button is clicked, add that text to the end of 
+ * an ordered list. Advanced users will also need to uppercase the 
+ * text that is inserted into the list based on the status of the 
+ * checkbox.
+ * 
+ * In action: http://screencast.com/t/ZDYwZGYyZ
+ */
+$(document).ready(function(){
+    
+    var $form = $('form'),
+    $results = $('#results'), 
+    $text = $('[name=mytext]'), 
+    $button = $('[name=doit]');
+    
+    $form.bind('submit', handleSubmit);
+    $button.bind('click', handleSubmit);
+
+    function handleSubmit( e )
+    {
+        e.preventDefault();
+        var text = $text.val(), upper = $('[name=upper]').get(0).checked
+        console.log('upper', upper)
+        text = upper ? text.toUpperCase() : text;
+        $('<li>').text( text ).appendTo( $results );
+    }
+
+});
         </script>
 	</head>
 	<body>
@@ -34,7 +49,7 @@
             <input type="checkbox" name="upper">
             <input type="button" name="doit" value="Add">
 	    </form>
-        <ul>
+        <ul id="results">
             
         </ul>
 	</body>
